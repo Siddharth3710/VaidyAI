@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parkinson's Disease Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h2 class="mb-0 text-center">Parkinson's Disease Prediction</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/parkinsons">
+                    <div class="mb-3">
+                        <label for="mdvpFo" class="form-label">MDVP:Fo(Hz)</label>
+                        <input type="number" step="0.001" class="form-control" id="mdvpFo" name="mdvpFo" required>
+                        <div class="form-text">Average vocal fundamental frequency (e.g., ~120–260 Hz)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mdvpFhi" class="form-label">MDVP:Fhi(Hz)</label>
+                        <input type="number" step="0.001" class="form-control" id="mdvpFhi" name="mdvpFhi" required>
+                        <div class="form-text">Maximum vocal fundamental frequency</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mdvpFlo" class="form-label">MDVP:Flo(Hz)</label>
+                        <input type="number" step="0.001" class="form-control" id="mdvpFlo" name="mdvpFlo" required>
+                        <div class="form-text">Minimum vocal fundamental frequency</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mdvpJitter" class="form-label">MDVP:Jitter(%)</label>
+                        <input type="number" step="0.00001" class="form-control" id="mdvpJitter" name="mdvpJitter" required>
+                        <div class="form-text">Variation in fundamental frequency (very small values)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mdvpShimmer" class="form-label">MDVP:Shimmer</label>
+                        <input type="number" step="0.00001" class="form-control" id="mdvpShimmer" name="mdvpShimmer" required>
+                        <div class="form-text">Variation in amplitude of sound wave</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mdvpApq" class="form-label">MDVP:APQ</label>
+                        <input type="number" step="0.00001" class="form-control" id="mdvpApq" name="mdvpApq" required>
+                        <div class="form-text">Amplitude perturbation quotient</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="shimmerDDA" class="form-label">Shimmer:DDA</label>
+                        <input type="number" step="0.00001" class="form-control" id="shimmerDDA" name="shimmerDDA" required>
+                        <div class="form-text">3-point amplitude perturbation</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nhr" class="form-label">NHR</label>
+                        <input type="number" step="0.00001" class="form-control" id="nhr" name="nhr" required>
+                        <div class="form-text">Noise-to-harmonics ratio</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hnr" class="form-label">HNR</label>
+                        <input type="number" step="0.01" class="form-control" id="hnr" name="hnr" required>
+                        <div class="form-text">Harmonics-to-noise ratio (e.g., 5–40 dB)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rpde" class="form-label">RPDE</label>
+                        <input type="number" step="0.00001" class="form-control" id="rpde" name="rpde" required>
+                        <div class="form-text">Recurrence Period Density Entropy (nonlinear dynamics measure)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dfa" class="form-label">DFA</label>
+                        <input type="number" step="0.00001" class="form-control" id="dfa" name="dfa" required>
+                        <div class="form-text">Detrended Fluctuation Analysis</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="spread1" class="form-label">Spread1</label>
+                        <input type="number" step="0.00001" class="form-control" id="spread1" name="spread1" required>
+                        <div class="form-text">Nonlinear measure of signal deviation</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="spread2" class="form-label">Spread2</label>
+                        <input type="number" step="0.00001" class="form-control" id="spread2" name="spread2" required>
+                        <div class="form-text">Second nonlinear signal deviation measure</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="d2" class="form-label">D2</label>
+                        <input type="number" step="0.00001" class="form-control" id="d2" name="d2" required>
+                        <div class="form-text">Correlation dimension</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ppe" class="form-label">PPE</label>
+                        <input type="number" step="0.00001" class="form-control" id="ppe" name="ppe" required>
+                        <div class="form-text">Pitch Period Entropy</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100">Predict Parkinson's</button>
+                </form>
+
+                {% if prediction is not none %}
+                    <div class="alert mt-4 {{ 'alert-success' if prediction == 0 else 'alert-danger' }}">
+                        <h5 class="mb-0">Result:</h5>
+                        <strong>{{ 'No Parkinson\'s Detected' if prediction == 0 else 'Parkinson\'s Disease Detected!' }}</strong>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
