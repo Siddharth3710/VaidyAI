@@ -4,7 +4,7 @@ A Flask-based machine learning web application that predicts three major disease
 
 ## 🚀 Live Demo
 
-**Deployed Application**: [Your Render App URL]
+**Deployed Application**: [https://vaidyai-1.onrender.com]
 
 ## 📋 Table of Contents
 
